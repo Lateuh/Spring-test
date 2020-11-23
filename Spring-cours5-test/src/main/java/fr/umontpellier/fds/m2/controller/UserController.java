@@ -3,6 +3,9 @@ package fr.umontpellier.fds.m2.controller;
 import fr.umontpellier.fds.m2.bean.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -14,11 +17,21 @@ public class UserController {
         return u;
     }
 
+    //renvoie liste de tous les utilisateurs
+    @CrossOrigin("*")
+    @GetMapping("/users")
+    public List<User> getUsers(){
+        List<User> listUsers = new ArrayList<>();
+        for(int i = 0;i<10;i++){
+            listUsers.add(new User("Nom"+i,"Prenom"+i,10+i));
+        }
+        return listUsers;
+    }
+
     
-    @GetMapping("/user/id")
-    public User getUser(){
-        // TO DO
-        return new User();
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable int id){
+        return new User("Nom"+id,"Prenom"+id,id+10);
     }
 
 
